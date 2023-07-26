@@ -1,0 +1,31 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+#root {
+  display: flex;
+  justify-content: center;
+}
+.App {
+  width: 800px;
+}
+
+.post {
+  display: flex;
+  padding: 15px;
+  border: 2px solid black;
+  margin-top: 15px;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  
+}
+/* .post-content {
+  /* color: aqua; */
+/* } */
+
+/* .post-btns {
+  padding-right: 0px;
+  display: flex;
+} */
