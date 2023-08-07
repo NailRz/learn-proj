@@ -15,4 +15,3 @@ const PostList = ({posts, title, remove}) => {
 
 export default PostList;
 
-// posts.lenght !== 0 ? <h2>Создайте дело!</h2> : 

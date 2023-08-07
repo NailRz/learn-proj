@@ -2,6 +2,8 @@ import { useState } from "react";
 import "./styles/App.css";
 import PostList from "./components/PostList";
 import PostForm from "./components/PostForm";
+import MyModal from "./components/UI/modal/MyModal";
+import MyButton from "./components/UI/button/MyButton";
 
 function App() {
   const [posts, setPosts] = useState([
@@ -12,24 +14,28 @@ function App() {
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
-    console.log(posts);
+    setModal(false)
   };
 
   const removePost = (post) => {
     setPosts(posts.filter((p) => p.id !== post.id));
   };
 
+  const [modal, setModal] = useState(false);
   return (
     <div className="App">
+      <MyButton style = {{marginTop:  20}}  onClick = {() => setModal(true)}> Создать дело </MyButton>
+      <MyModal visible={modal} setVisible={setModal}>
+        <PostForm create={createPost} />
+      </MyModal>
       <h1>Todo list</h1>
-      <PostForm create={createPost}></PostForm>
-      {posts.length !== 0 ? (
-        <PostList remove={removePost} posts={posts} title={"Список дел"} />
-      ) : (
+
+      {posts.length === 0 ? (
         <h2>Создайте дело!</h2>
+      ) : (
+        <PostList remove={removePost} posts={posts} title={"Список дел"} />
       )}
     </div>
   );
 }
-
 export default App;
