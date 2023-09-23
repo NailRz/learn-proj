@@ -14,7 +14,7 @@ function App() {
 
   const createPost = (newPost) => {
     setPosts([...posts, newPost]);
-    setModal(false)
+    setModal(false);
   };
 
   const removePost = (post) => {
@@ -24,12 +24,13 @@ function App() {
   const [modal, setModal] = useState(false);
   return (
     <div className="App">
-      <MyButton style = {{marginTop:  20}}  onClick = {() => setModal(true)}> Создать дело </MyButton>
+      <h1>Todo list</h1>
       <MyModal visible={modal} setVisible={setModal}>
         <PostForm create={createPost} />
       </MyModal>
-      <h1>Todo list</h1>
-
+      <MyButton style={{ marginTop: 20 }} onClick={() => setModal(true)}>
+        Создать дело
+      </MyButton>
       {posts.length === 0 ? (
         <h2>Создайте дело!</h2>
       ) : (
