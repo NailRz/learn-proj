@@ -1,4 +1,3 @@
-import { query } from "express";
 import { useMemo } from "react";
 
 export const useSortedPosts = (posts, sort) => {
@@ -13,10 +12,16 @@ export const useSortedPosts = (posts, sort) => {
 
 export const usePosts = (posts, sort, query) => {
   const sortedPosts = useSortedPosts(posts, sort);
+
   const sortedAndSearchedPosts = useMemo(() => {
-    return sortedPosts.filter((post) =>
-      post.title.toLowerCase().includes(query)
-    );
+    if (sortedPosts) {
+      return sortedPosts.filter((post) =>
+        post.title.toLowerCase().includes(query)
+      );
+    }
+    return [];
   }, [query, sortedPosts]);
+
   return sortedAndSearchedPosts;
 };
+
