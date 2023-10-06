@@ -7,13 +7,23 @@ import MyButton from "./components/UI/button/MyButton";
 import PostFilter from "./components/PostFilter";
 import { usePosts } from "./components/UI/hooks/usePosts";
 import PostService from "./components/API/PostService";
+import { useFetching } from "./components/UI/hooks/useFetching";
 
 function App() {
   const [posts, setPosts] = useState([]);
 
   const [filter, setFilter] = useState({ sort: "", query: "" });
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
-  const [isPostsLoading, setIsPostsLoading] = useState(false);
+  const [totalCount, setTotalCount] = useState(0) 
+  const [limit, setLimit] = useState(10)
+  const [page, setPage] = useState(1)
+ 
+  const [fetchPosts, isPostsLoading, postError] = useFetching( async () => {
+    const response = await PostService.getAll(limit, page);
+    console.log(response.headers['x-total-count'])
+    setPosts(response.data);
+    setTotalCount(response.headers['x-total-count'])
+  })
 
   useEffect(() => {
     console.log("USE EFFECT");
@@ -31,13 +41,6 @@ function App() {
 
   const [modal, setModal] = useState(false);
 
-  async function fetchPosts() {
-    setIsPostsLoading(true);
-    const posts = await PostService.getAll();
-    setPosts(posts);
-    setIsPostsLoading(false);
-  }
-
   return (
     <div className="App">
       <MyModal visible={modal} setVisible={setModal}>
@@ -47,7 +50,9 @@ function App() {
         Создать...
       </MyButton>
       <PostFilter filter={filter} setFilter={setFilter} />
-
+      {postError &&
+        <h1>Произошла ошибка: ${postError}</h1>
+      }
       {isPostsLoading ? (
         <h1>Идет загрузка...</h1>
       ) : (

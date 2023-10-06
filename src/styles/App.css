@@ -6,6 +6,7 @@
 #root {
   display: flex;
   justify-content: center;
+  margin-inline: 10px;
 }
 .App {
   width: 800px;
@@ -19,7 +20,7 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: row;
-  
+  margin-inline: 2px;
 }
 /* .post-content {
   /* color: aqua; */
