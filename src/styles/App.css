@@ -1,32 +1,39 @@
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 #root {
-  display: flex;
-  justify-content: center;
-  margin-inline: 10px;
+	display: flex;
+	justify-content: center;
+	margin-inline: 10px;
 }
 .App {
-  width: 800px;
+	width: 800px;
 }
 
 .post {
-  display: flex;
-  padding: 15px;
-  border: 2px solid black;
-  margin-top: 15px;
-  justify-content: space-between;
-  align-items: center;
-  flex-direction: row;
-  margin-inline: 2px;
+	display: flex;
+	padding: 15px;
+	border: 2px solid black;
+	margin-top: 15px;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	margin-inline: 2px;
 }
-/* .post-content {
-  /* color: aqua; */
-/* } */
 
-/* .post-btns {
-  padding-right: 0px;
-  display: flex;
-} */
+.page__wraper {
+	margin-top: 30px;
+}
+
+.page__button {
+	cursor: pointer;
+	border: 2px solid black;
+	color: black;
+}
+
+.page__button__current {
+	border: 3px solid black;
+	font-weight: bold;
+}
