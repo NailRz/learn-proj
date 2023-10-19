@@ -1,80 +1,22 @@
-import { useEffect, useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./components/AppRouter";
+import Navbar from "./components/UI/Navbar/Navbar";
+import { AuthContext } from "./components/context";
 import "./styles/App.css";
-import PostList from "./components/PostList";
-import PostForm from "./components/PostForm";
-import MyModal from "./components/UI/modal/MyModal";
-import MyButton from "./components/UI/button/MyButton";
-import PostFilter from "./components/PostFilter";
-import { usePosts } from "./components/hooks/usePosts";
-import PostService from "./components/API/PostService";
-import { useFetching } from "./components/hooks/useFetching";
-import { getPagesCount } from "./utils/page";
-import { usePagination } from "./components/hooks/usePagination";
+import { useState } from "react";
 
 function App() {
-	const [posts, setPosts] = useState([]);
-
-	const [filter, setFilter] = useState({ sort: "", query: "" });
-	const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);
-	const [totalPages, setTotalPages] = useState(0);
-	const [limit, setLimit] = useState(10);
-	const [page, setPage] = useState(1);
-
-	let pagesArray = usePagination(totalPages);
-
-	const [fetchPosts, isPostsLoading, postError] = useFetching(async () => {
-		const response = await PostService.getAll(limit, page);
-		setPosts(response.data);
-		const totalCount = response.headers["x-total-count"];
-		setTotalPages(getPagesCount(totalCount, limit));
-	});
-
-	useEffect(() => {
-		fetchPosts();
-	}, [page]);
-
-	const createPost = (newPost) => {
-		setPosts([...posts, newPost]);
-		setModal(false);
-	};
-
-	const removePost = (post) => {
-		setPosts(posts.filter((p) => p.id !== post.id));
-	};
-
-  const changePage = (page) => {
-    setPage(page)
-  }
-
-	const [modal, setModal] = useState(false);
-
+	const [isAuth, setIsAuth] = useState(false);
 	return (
-		<div className="App">
-			<MyModal visible={modal} setVisible={setModal}>
-				<PostForm create={createPost} />
-			</MyModal>
-			<MyButton style={{ marginTop: 20 }} onClick={() => setModal(true)}>
-				Создать...
-			</MyButton>
-			<PostFilter filter={filter} setFilter={setFilter} />
-			{postError && <h1>Произошла ошибка: ${postError}</h1>}
-			{isPostsLoading ? (
-				<h1>Идет загрузка...</h1>
-			) : (
-				<PostList
-					remove={removePost}
-					posts={sortedAndSearchedPosts}
-					title={"Список"}
-				/>
-			)}
-			<div className="page__wraper">
-				{pagesArray.map((p) => (
-					<MyButton onClick = {() => changePage(p)} key={p} className={page === p ? "page__button page__button__current" :  "page__button"}>
-						{p}
-					</MyButton>
-				))}
-			</div>
-		</div>
+		<AuthContext.Provider value={{
+			isAuth,
+			setIsAuth
+		}}>
+			<BrowserRouter>
+				<Navbar />
+				<AppRouter />
+			</BrowserRouter>
+		</AuthContext.Provider>
 	);
 }
 export default App;

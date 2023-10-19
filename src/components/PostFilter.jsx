@@ -4,7 +4,7 @@ import MySelect from './UI/select/MySelect';
 
 const PostFilter = ({filter, setFilter}) => {
     return (
-        <div>
+        <div style = {{marginInline: 15}}>
         <MyInput 
         placeholder = 'Поиск...'
         value = {filter.query}
