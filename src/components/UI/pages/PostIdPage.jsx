@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useFetching } from "../hooks/useFetching";
-import PostService from "../API/PostService";
+import { useFetching } from "../../hooks/useFetching";
+import PostService from "../../API/PostService";
 
 const PostIdPage = () => {
 	const params = useParams();
@@ -46,7 +46,7 @@ const PostIdPage = () => {
 			) : (
 				<div>
 					{comments.map((comm) => (
-						<div style={{   }}>
+						<div key={comm.id} style={{   }}>
 							<h5>{comm.email}</h5>
 							<div>{comm.body}</div>
 						</div>

@@ -19,7 +19,7 @@ const PostForm = ({create}) => {
         <MyInput
           type="text"
           placeholder="Название поста"
-          value={post.title}
+          value={post.title}  
           onChange={(e) => setPost({ ...post, title: e.target.value })}
         />
         <MyInput
@@ -28,7 +28,7 @@ const PostForm = ({create}) => {
           value={post.body}
           onChange={(e) => setPost({ ...post, body: e.target.value })}
         />
-        <MyButton onClick={addNewPost}>Создать дело</MyButton>
+        <MyButton onClick={addNewPost}>Создать</MyButton>
       </form>
     </div>
   );

@@ -1,9 +1,9 @@
 import { Navigate, Outlet } from "react-router-dom";
-import About from "../pages/About";
-import Login from "../pages/Login";
-import PostIdPage from "../pages/PostIdPage";
-import Posts from "../pages/Posts";
-import Page404 from "../pages/Page404";
+import About from "../UI/pages/About";
+import Login from "../UI/pages/Login";
+import PostIdPage from "../UI/pages/PostIdPage";
+import Posts from "../UI/pages/Posts";
+import Page404 from "../UI/pages/Page404";
 
 const routes = (isAuth) => [
 	{
@@ -11,8 +11,11 @@ const routes = (isAuth) => [
 		element: isAuth ? <Posts /> : <Navigate to="/login" />,
 		children: [],
 	},
-    { path: '/', element: <Navigate to="/posts" /> },
-    { path: '/login', element: <Login/> },
+	{ path: "/posts/:id", element: <PostIdPage />, exact: "True" },
+	{ path: "/", element: <Navigate to="/posts" />, exact: "True" },
+	{ path: "/login", element: isAuth ? <Navigate to="/posts" /> : <Login /> },
+    { path: "*", element: <Page404/>   },
+    
 
 	{
 		path: "/about",

@@ -7,7 +7,7 @@ const Pagination = ({totalPages, page, changePage}) => {
     return (
         <div style = {{marginInline: 15}} className="page__wraper" >
 				{pagesArray.map((p) => (
-					<MyButton onClick = {() => changePage(p)} key={p} className={page === p ? "page__button page__button__current" :  "page__button"}>
+					<MyButton onClick = {() => changePage(p)} key = {p} className={page === p ? "page__button page__button__current" :  "page__button"}>
 						{p}
 					</MyButton>
 				))}
